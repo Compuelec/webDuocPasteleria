@@ -1,0 +1,230 @@
+/* styles.css */
+
+/* Colores personalizados */
+:root {
+  --bg-primary-color: #dee1e3b1;
+  --primary-color: #6b90a8;
+  --primary-color-hover: #4a6a80;
+  --secondary-color: #67b309;
+  --secondary-color-hover: #487d07;
+  --text-color: #424141;
+  --color-blanco: #FFF;
+  --color-amarillo: #fffb00;
+}
+/* ESTILOS GENERALES */
+.card-body a { /* Cambiar el estilo del botón que esta dentro de una card */
+  width: 100%;
+  margin: 3px;
+}
+.col-md-8 .btn{
+  margin-top: 5%;
+  width: 30%;
+}
+.bg-primary { /* Cambiar el estilo del color de fondo primario*/
+  background-color: var(--bg-primary-color) !important;
+}
+.btn-primary { /* Cambiar el estilo del botón primario*/
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-primary:hover {
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+}
+.btn-secondary { /* Cambiar el estilo del botón secundario */
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+.btn-secondary:hover {
+  background-color: var(--secondary-color-hover);
+  border-color: var(--secondary-color-hover);
+}
+.nav-link { /* Cambiar el color del texto de la barra de navegación */
+  color: var(--text-color) !important;
+}
+.nav-link.active, .nav-link:hover { /* Cambiar el color del texto activo en la barra de navegación */
+  color: var(--secondary-color) !important;
+}
+.card:hover { /* Añade sombras en las tarjetas */
+  box-shadow: 0px 1px 10px rgba(0,0,0,2);
+  transform: scale(1.1);
+}
+
+/* SECCION HEADER */
+.redes-sociales a { /* Cambiar el estilo de iconos redes sociales */
+  font-size: 20px;
+  margin: 0 5px;  
+  color: var(--primary-color);
+}
+.redes-sociales a:hover {
+  color: var(--secondary-color);
+}
+.titulo {
+  display: grid;
+  align-content: center;
+}
+
+/* SECCION BARRA DE NAVEGACION (MENU) */
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; 
+}
+
+.carrito-nav-menu {
+  display: none;
+}
+
+#carrito-icono {
+    position: relative;
+    color: var(--secondary-color);/* Color del ícono del carrito */
+}
+
+#carrito-cantidad {
+    position: absolute;
+    top: -10px; 
+    right: -10px; 
+    background-color: red; 
+    padding: 4px 6px; 
+    border-radius: 50%; 
+    min-width: 12px;
+    text-align: center;
+} 
+
+/* SECCION SLIDER */
+.carousel-item img { /* Cambiar el ancho y alto de la imagen en el carrusel */
+  max-height: 520px;
+  width: 100%;
+}
+
+/* SECCION DE PRODUCTOS */
+.section-producto .cardProducto {
+  margin-bottom: 50px;
+}
+.section-producto .card-title { /* Cambiar el estilo del título de las tarjetas */
+  font-weight: bold;
+  height: 60px;
+  color: var(--text-color);
+}
+
+.section-producto .card-text { /* Cambiar el estilo de las etiquetas <p> dentro de las tarjetas */
+  color: var(--text-color);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* SECCION FOOTER */
+.footer {
+  background-color: var(--primary-color); /* Cambiar el color de fondo del footer */
+}
+.footer .container {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+.footer h4 { /* Cambiar el color del texto del footer */
+  color: var(--color-blanco);
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+.footer p {
+  color: #ffffffa7;
+  font-size: 16px;
+}
+.txt-derechos p {
+  margin-top: 20px;
+  color: #e3e3e365;
+}
+.img-webpayplus {
+  width: 90%;
+}
+/* SECCION DETALLE DE PRODUCTO*/
+.descricion {
+  color: var(--text-color);
+  font-weight: bold;
+  min-height: 60px;
+  margin-top: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* SECCION FORMULARIO */
+.invalid-feedback {
+  display: none;
+  color: #fff;
+  background-color: #dc3545;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  width: max-content;
+  max-width: 100%;
+  border-radius: 0.55rem;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  transform: translate(-50%, 0%);
+  left: 75%;
+  top: calc(100% + 1px);
+}
+
+.invalid-feedback::before {
+  content: "";
+  position: absolute;
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: transparent transparent #dc3545 transparent;
+  top: -1rem; /* Mover la flecha más cerca del tooltip */
+  left: 80%;
+  transform: translateX(-50%);
+}
+
+.form-check-input.is-invalid ~ .invalid-feedback {
+  display: block;
+  transform: none;
+  position: relative;
+  margin-top: 0.25rem;
+  left: unset;
+  top: unset;
+}
+
+/* SECCION CARRITO DE COMPRAS*/
+#tabla-carrito button {
+  margin: 0 5px;
+  padding: 2px 4px;
+}
+
+#botonPagar {
+  margin-bottom: 20px;
+}
+
+/* PANTALLA EN RESOLUCIONES < 992 px */
+@media (max-width: 991px) {
+  .navbar .container {
+    max-width: 100%;
+    display: block;
+  }
+  .logo-container {
+    max-width: 100%;
+  }
+}
+
+/* PANTALLA EN RESOLUCIONES < 768 px */
+@media (max-width: 767px) {
+  .logo-container {
+    display: grid;
+    text-align: center;
+  }
+  .logo-container img {
+    width: 50%;
+  }
+}
+
+
+/* PANTALLA EN RESOLUCIONES < 607 px */
+@media (max-width: 606px) {
+  .content-table {
+    overflow-x: auto;
+    display: block;
+  }
+}
