@@ -19,7 +19,8 @@ Version de Django 3.0.6
 ```
 <br>
 
-Pasos previos:
+### Pasos previos:
+<hr>
 
 1.- Asegúrate de tener Python instalado en tu sistema. Puedes descargarlo desde el sitio web oficial de Python (https://www.python.org) y seguir las instrucciones de instalación.
 
@@ -33,6 +34,7 @@ pip install virtualenv
 <br>
 
 ### Pasos para clonar y trabajar con el repositorio en Windows:
+<hr>
 
 1.- Clona el repositorio en tu máquina local:
 ```bash
@@ -55,6 +57,7 @@ python manage.py runserver
 <br>
 
 ### Pasos para clonar y trabajar con el repositorio en macOS:
+<hr>
 
 1.- Clona el repositorio ejecutando el siguiente comando:
 ```bash
@@ -75,6 +78,7 @@ python manage.py runserver
 5.- Django iniciará el servidor en http://127.0.0.1:8000/ (localhost en el puerto 8000) de forma predeterminada. Puedes abrir tu navegador web y visitar esa dirección para ver el proyecto en funcionamiento
 
 <br>
+
 ## Integrantes
 
 - Paula Palma
