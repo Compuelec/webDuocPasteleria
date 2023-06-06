@@ -1,0 +1,21 @@
+{% extends 'homePage/index.html' %}
+{% block contenido %}
+{% load static %}
+  <!-- Promociones -->
+  <section class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/DESCUENTO.jpg' %}" class="card-img-top" alt="Entrada 1">
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/DESCUENTO2.jpg' %}" class="card-img-top" alt="Entrada 1">
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

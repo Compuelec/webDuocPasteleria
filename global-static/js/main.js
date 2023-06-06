@@ -209,7 +209,28 @@ function cargarProductos() {
     });
 }
 // Llama a la función cuando la página termine de cargar y cargue los productos
-window.onload = cargarProductos;
+window.addEventListener('load', function() {
+    if (window.location.pathname === '/' || window.location.pathname === '/blog/' || window.location.pathname === '/productos/' ) {
+        cargarProductos();
+    }
+});
+
+window.addEventListener('load', function() {
+var productosElementProductos = document.getElementById('productos');
+var productosElementBlog = document.getElementById('blog');
+
+    if (window.location.pathname === '/productos/' ) {
+        if (productosElementProductos) {
+            productosElementProductos.scrollIntoView();
+        }
+    }
+
+    if (window.location.pathname === '/blog/' ) {
+        if (productosElementBlog) {
+            productosElementBlog.scrollIntoView();
+        }
+    }
+});
 
 // Esto hace que el navbar se fije en la parte superior cuando se hace scroll
 $(window).scroll(function() {
@@ -239,8 +260,8 @@ function MostrarCarrito() {
         tablaCarrito.appendChild(carritoVacioMensaje);
 
         // Redirigir a la página de inicio cuando el carrito esté vacío y se encuentre en la página del carrito
-        if (window.location.pathname.includes('carrito.html')) {
-            window.location.href = 'index.html';
+        if (window.location.pathname === '/carrito/') {
+            window.location.href = '/';
         }
 
         return;
@@ -338,6 +359,13 @@ function MostrarCarrito() {
     }
 }
 
+window.addEventListener('load', function() {
+    if (window.location.pathname === '/carrito/') {
+        ActualizarCarritoIcono();
+        MostrarCarrito();
+    }
+});
+
 // Función genérica para validar un campo de texto requerido
 function validarRequerido(input) {
   if (input.value.trim() === '') {
@@ -416,9 +444,9 @@ function validarFormulario(event) {
     const mensaje = 'Formulario enviado correctamente';
     MensajeAlerta(mensaje, 'success');
     // Redirigir a la página de inicio cuando el mensaje sea enviado correctamente
-    if (window.location.pathname.includes('contacto.html')) {
+    if (window.location.pathname === '/contacto/') {
         setTimeout(function() {
-            window.location.href = 'index.html';
+            window.location.href = '/';
         }, 3000);
     }
   }

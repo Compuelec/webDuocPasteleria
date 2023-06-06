@@ -1,0 +1,93 @@
+{% extends 'homePage/index.html' %}
+{% block contenido %}
+{% load static %}
+
+  <!-- Slider -->
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'img/slider/portada-pasteles-de-linea.jpg' %}" class="d-block w-100" alt="Promoción 1">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/slider/slider-pasteles-de-linea-gourmet-2.jpg' %}" alt="Promoción 2">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/slider/slider-pasteles-de-linea-quesos-2.jpg' %}" class="d-block w-100" alt="Promoción 3">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/slider/slider-pasteles-de-linea-tres-leches-chocolate-2.jpg' %}" class="d-block w-100" alt="Promoción 4">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+
+  <!-- Vitrina de productos -->
+  <section class="container my-5 section-producto" id="productos">
+    <div id="productos-container" class="row">
+    </div>
+  </section>
+
+  <!-- Sección del blog -->
+  <section class="container my-5 section-blog" id="blog">
+    <div class="row">
+     
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/alfajores-de-chocolate-1.jpg' %}" class="card-img-top" alt="Entrada 1">
+          <div class="card-body">
+            <h5 class="card-title">Alfajores de chocolate Argentinos</h5>
+            <p class="card-text">Autor: John Doe</p>
+            <p class="card-text">Fecha: 27 de abril de 2023</p>
+            <p class="card-text">Tags: Receta</p>
+            <p class="card-text">Resumen del artículo de blog.</p>
+            <a href="blog-receta-alfajores.html" class="btn btn-primary">Leer más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/galletas-milano-3.jpg' %}" class="card-img-top" alt="Entrada 1">
+          <div class="card-body">
+            <h5 class="card-title">Galletas milano</h5>
+            <p class="card-text">Autor: Silvia Milano</p>
+            <p class="card-text">Fecha: 7 de abril de 2023</p>
+            <p class="card-text">Tags: Receta</p>
+            <p class="card-text">Resumen del artículo de blog.</p>
+            <a href="blog-receta-galletas.html" class="btn btn-primary">Leer más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/galleta-principe-estrella-6.jpg' %}" class="card-img-top" alt="Entrada 1">
+          <div class="card-body">
+            <h5 class="card-title">Galletas principe</h5>
+            <p class="card-text">Autor: Maria Estrella</p>
+            <p class="card-text">Fecha: 27 de enero de 2023</p>
+            <p class="card-text">Tags: Receta</p>
+            <p class="card-text">Resumen del artículo de blog.</p>
+            <a href="blog-receta-galletas-principe.html" class="btn btn-primary">Leer más</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+{% endblock %}

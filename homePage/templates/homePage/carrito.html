@@ -1,0 +1,30 @@
+{% extends 'homePage/index.html' %}
+{% block contenido %}
+{% load static %}
+
+    <div class="container mt-5">
+        <div class="content-table">
+          <table id="tabla-carrito" class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                  <tr>
+                      <th scope="col">Código</th>
+                      <th scope="col">Producto</th>
+                      <th scope="col">Precio Unitario</th>
+                      <th scope="col" class="text-center">Cantidad</th>
+                      <th scope="col" class="text-center">Total</th>
+                      <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+        </div>
+        <div id="totales" class="text-right font-weight-bold">
+            <!-- Los totales se llenarán dinámicamente desde JavaScript -->
+        </div>
+        <div class="text-right">
+          <button id="botonPagar" class="btn btn-primary">Pagar</button>
+        </div>
+    </div>
+
+{% endblock %}
