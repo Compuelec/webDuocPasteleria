@@ -20,6 +20,7 @@ from adminPanel import views as adminViews
 
 urlpatterns = [
     path('admin/', adminViews.index, name='admin'),
+    path('admin/users/', adminViews.users, name='users'),
     path('', homeViews.index, name='index'),
     path('promociones/', homeViews.promociones, name='promociones'),
     path('contacto/', homeViews.contacto, name='contacto'),
