@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     #My app
     'homePage',
+    'adminPanel',
 ]
 
 MIDDLEWARE = [
