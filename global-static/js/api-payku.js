@@ -1,7 +1,7 @@
 // Datos de autenticación de Payku
-const publicKey = "tkpu0db1bc64984cff827371070338d2";
-const privateKey = "tkpi7488e824bc3d39a82a0b223a789c";
-const endpoint = "https://des.payku.cl/api/transaction"; // desarrollo
+const publicKey = "tkpu1598a1b1f63eaada79ea41e1fab4";
+const privateKey = "tkpiffcb5c79a34ae500d36560f674b1";
+const endpoint = "https://des.payku.cl/api/transaction/"; // desarrollo
 // const endpoint = "https://app.payku.cl/api/transaction"; // producción
 
 // Función para obtener los datos de transacción desde tu carrito de compras
