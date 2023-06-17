@@ -22,11 +22,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$kz4o2%i=ofze&n+ha712%_=yh(4#9xi&hl_2cco0+&lhl6^yq'
 
+JWT_SECRET_KEY = '$kz4o2%i=ofze&n+ha712%_=yh(4#9xi&hl_2cco0+&lhl6^yq2wqzxa1u6s$3!)'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/admin/login/'
+LOGIN_REDIRECT_URL = '/admin'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -82,15 +87,26 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pasteleria',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'losbar191184',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+SESSION_COOKIE_SECURE = False  # Configura en True si estás utilizando HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Mejora la seguridad evitando que las cookies sean accesibles a través de JavaScript
+SESSION_COOKIE_SAMESITE = 'Strict'  # Evita el envío de cookies de sesión en solicitudes externas (CSRF)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+
+AUTHENTICATION_BACKENDS = [
+    'adminPanel.backends.MyCustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -111,15 +127,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
+TIME_ZONE = 'America/Santiago'
 
 USE_L10N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
