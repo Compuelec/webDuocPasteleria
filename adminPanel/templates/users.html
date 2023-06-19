@@ -3,7 +3,101 @@
 {% block content %}
 <!-- page content -->
 <div class="right_col" role="main">
-  <h1>Usuarios</h1>
+    <div class="container">
+      <h1>Listado de Usuarios</h1>
+
+      <!-- Botón Agregar Usuario -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+        Agregar Usuario
+      </button>
+
+      <!-- Tabla de Usuarios -->
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Tipo</th>
+            <th>Foto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for usuario in usuarios %}
+          <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td>{{ usuario.tipo }}</td>
+            <td>
+              {% if usuario.imagen %}
+                <img src="{{ usuario.imagen.url }}" alt="Foto Usuario" width="50">
+              {% else %}
+                No hay imagen
+              {% endif %}
+            </td>
+            <td>
+              <!-- Botón Editar Usuario -->
+              <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editUserModal{{ usuario.id }}">
+                Editar
+              </button>
+              <!-- Botón Eliminar Usuario -->
+              <button type="button" class="btn btn-sm btn-danger">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Agregar Usuario -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">Agregar Usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario para agregar un nuevo usuario -->
+            <!-- Aquí debes añadir los campos necesarios para crear un nuevo usuario -->
+            <!-- Por ejemplo: nombre, correo, tipo, foto, etc. -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario para editar un usuario -->
+            <!-- Aquí debes añadir los campos necesarios para editar un usuario existente -->
+            <!-- Por ejemplo: nombre, correo, tipo, foto, etc. -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 <!-- /page content -->
 {% endblock %}
