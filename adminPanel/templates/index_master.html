@@ -7,10 +7,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	  <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>ADMIN LA DANESA! | </title>
 
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static '/FrWork/admin_lte/vendors/fontawesome-free/css/all.min.css' %}">
     <!-- Bootstrap -->
     <link href="{% static '/FrWork/admin_lte/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font Awesome -->
@@ -26,9 +30,16 @@
     <link href="{% static '/FrWork/admin_lte/vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{% static '/FrWork/admin_lte/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static '/FrWork/admin_lte/vendors/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static '/FrWork/admin_lte/vendors/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static '/FrWork/admin_lte/vendors/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
 
     <!-- Custom Theme Style -->
+
     <link href="{% static '/FrWork/admin_lte/build/css/custom.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/main-admin.css' %}" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -92,6 +103,48 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{% static '/FrWork/admin_lte/build/js/custom.min.js' %}"></script>
-	
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/jszip/jszip.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+    <!-- AdminLTE App -->
+    <script src="{% static '/FrWork/admin_lte/build/js/adminlte.min.js' %}"></script>
+
+    <script src="{% static 'js/main-admin.js' %}"></script>
+    <script>
+      $(document).ready(function() {
+        $('#userTable').DataTable({
+          paging: true,
+          lengthChange: false,
+          searching: false,
+          ordering: true,
+          info: true,
+          autoWidth: false,
+          responsive: true,
+          language: {
+            paginate: {
+              next: 'Siguiente',
+              previous: 'Anterior',
+              last: 'Último',
+              first: 'Primero'
+            },
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ resultados',
+            emptyTable: 'No hay datos disponibles',
+          }
+        });
+      });
+    </script>
   </body>
 </html>

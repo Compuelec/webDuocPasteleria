@@ -29,9 +29,7 @@
           <div class="card-body p-5 text-center">
 
                 <h3 class="mb-5">Ingreso al Sistema</h3>
-                    {% if error_message %}
-                        <p class="text-danger">{{ error_message }}</p>
-                    {% endif %}
+                    
                 <form action="{% url 'login' %}" method="POST">
                   {% csrf_token %}
                     <div class="form-outline mb-4">
@@ -44,12 +42,12 @@
                         <label class="form-label" for="password">Contraseña</label>
                     </div>
 
-                    <!-- Checkbox -->
-                    <div class="form-check d-flex justify-content-start mb-4">
-                      <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-                      <label class="form-check-label" for="form1Example3"> Remember password </label>
-                    </div>
-
+                    {% if error_message %}
+                      <div class="alert alert-danger my-2 ">
+                        <i class="fas fa-times-circle me-3"></i>
+                        {{ error_message }}
+                      </div>
+                    {% endif %}
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Iniciar Sesion</button>
                 </form>  
 
