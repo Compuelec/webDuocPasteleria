@@ -1,10 +1,193 @@
 {% extends 'index_master.html' %}
-
 {% block content %}
-<!-- page content -->
-<div class="right_col" role="main">
-  <h1>Productos</h1>
-  <h4>Detalles de Productos</h4>
-</div>
-<!-- /page content -->
+{% load custom_filters %}
+{% load static %}
+  <!-- page content -->
+  <div class="right_col" role="main">
+  {% if request.session.tipo == 'admin' %}
+      <div class="container">
+
+        <!-- Tabla de Productos -->
+        <section class="content">
+              <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                              <h3 class="card-title">Listado de Productos</h3>
+                              <!-- Botón Agregar Producto -->
+                              <button id="addProductBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
+                                Agregar Producto
+                              </button>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                              <table id="productTable" class="table table-bordered table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>ID</th>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Imagen</th>
+                                    <th>Stock</th>
+                                    <th>Valor</th>
+                                    <th>Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for producto in productos %}
+                                  <tr>
+                                    <td>
+                                      <span class="product-id">{{ producto.id }}</span>
+                                    </td>
+                                    <td>{{ producto.codigo }}</td>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>
+                                      {% if producto.imagen %}
+                                        <img src="{{ producto.imagen.url }}" alt="Imagen de Producto" width="50">
+                                      {% else %}
+                                        <img src="{% static 'img/product_base.jpeg' %}" alt="Imagen de Producto" width="50">
+                                      {% endif %}
+                                    </td>
+                                    <td>{{ producto.stock }}</td>
+                                    <td>{{ producto.valor|formato_moneda }}</td>
+                                    <td>
+                                      <div class="actions">
+                                        <!-- Botón Editar Producto -->
+                                        <button type="button" class="btn btn-sm btn-info edit-product-btn" 
+                                          data-toggle="modal" 
+                                          data-target="#editProductModal"
+                                          data-id="{{ producto.id }}" 
+                                          data-codigo="{{ producto.codigo }}"
+                                          data-nombre="{{ producto.nombre }}"
+                                          data-descripcion="{{ producto.descripcion }}"
+                                          data-stock="{{ producto.stock }}"
+                                          data-precio="{{ producto.valor|floatformat }}"
+                                          {% if producto.imagen %}
+                                            data-imagen="{{ producto.imagen.url }}"
+                                          {% else %}
+                                            data-imagen="{% static 'img/product_base.jpeg' %}"
+                                          {% endif %}>
+                                          Editar
+                                        </button>
+                                        <!-- Botón Eliminar Producto -->
+                                        <button type="button" class="btn btn-sm btn-danger delete-product-btn" data-id="{{ producto.id }}" data-nombre="{{ producto.nombre }}">
+                                          Eliminar
+                                        </button>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+        </section>
+      </div>
+
+      <!-- Modal Agregar Producto -->
+      <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addProductModalLabel">Agregar Producto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="addProductForm">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="codigo">Código</label>
+                  <input type="text" class="form-control" id="codigo" name="codigo" required>
+                </div>
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                  <label for="descripcion">Descripción</label>
+                  <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="stock">Stock</label>
+                  <input type="number" class="form-control" id="stock" name="stock" required>
+                </div>
+                <div class="form-group">
+                  <label for="valor">Valor</label>
+                  <input type="number" class="form-control" id="valor" name="valor" required>
+                </div>
+                <div class="form-group">
+                  <label for="productImagen">Imagen</label>
+                  <input type="file" class="form-control-file" id="productImagen" name="productImagen">
+                </div>
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" onclick="agregarProducto()">Crear Producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Editar Producto -->
+      <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="editProductForm">
+                {% csrf_token %}
+                <input type="hidden" id="editProductId" name="editProductId" value="">
+                <div class="form-group">
+                  <label for="editProductCodigo">Código</label>
+                  <input type="text" class="form-control" id="editProductCodigo" name="editProductCodigo" required>
+                </div>
+                <div class="form-group">
+                  <label for="editProductNombre">Nombre</label>
+                  <input type="text" class="form-control" id="editProductNombre" name="editProductNombre" required>
+                </div>
+                <div class="form-group">
+                  <label for="editProductDescripcion">Descripción</label>
+                  <textarea class="form-control" id="editProductDescripcion" name="editProductDescripcion" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="editProductStock">Stock</label>
+                  <input type="number" class="form-control" id="editProductStock" name="editProductStock" required>
+                </div>
+                <div class="form-group">
+                  <label for="editProductValor">Valor</label>
+                  <input type="number" class="form-control" id="editProductValor" name="editProductValor" required>
+                </div>
+                <div class="form-group">
+                  <label for="editProductImagen">Imagen</label>
+                  <input type="file" class="form-control-file" id="editProductImagen" name="editProductImagen">
+                </div>
+                <!-- Mostrar la imagen actual del producto o la imagen base -->
+                <div class="form-group">
+                  <img id="editProductImagePreview" src="{% static 'img/product_base.jpeg' %}" alt="Imagen de Producto" style="max-width: 200px;">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" onclick="editarProducto()">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  {% endif %}
+  </div>
+  <!-- /page content -->
 {% endblock %}

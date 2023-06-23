@@ -123,28 +123,7 @@
     <script src="{% static '/FrWork/admin_lte/build/js/adminlte.min.js' %}"></script>
 
     <script src="{% static 'js/main-admin.js' %}"></script>
-    <script>
-      $(document).ready(function() {
-        $('#userTable').DataTable({
-          paging: true,
-          lengthChange: false,
-          searching: false,
-          ordering: true,
-          info: true,
-          autoWidth: false,
-          responsive: true,
-          language: {
-            paginate: {
-              next: 'Siguiente',
-              previous: 'Anterior',
-              last: 'Último',
-              first: 'Primero'
-            },
-            info: 'Mostrando _START_ a _END_ de _TOTAL_ resultados',
-            emptyTable: 'No hay datos disponibles',
-          }
-        });
-      });
-    </script>
+    <script src="{% static 'js/admin-users.js' %}"></script>
+    <script src="{% static 'js/admin-products.js' %}"></script>
   </body>
 </html>
