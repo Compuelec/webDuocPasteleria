@@ -1,13 +1,39 @@
-// Agregar usuarios
-  var btnAddUser = document.getElementById('addUserBtn');
-  btnAddUser.addEventListener('click', function() {
-    setTimeout(function() {
-        document.getElementById('nombre').value = '';
-        document.getElementById('correo').value = '';
-        document.getElementById('password').value = '';
-        document.getElementById('nombre').focus();
-    }, 500);
+$(document).ready(function() {
+  $('#userTable').DataTable({
+    paging: true,
+    lengthChange: false,
+    searching: false,
+    ordering: true,
+    info: true,
+    autoWidth: false,
+    responsive: true,
+    language: {
+      paginate: {
+        next: 'Siguiente',
+        previous: 'Anterior',
+        last: 'Último',
+        first: 'Primero'
+      },
+      info: 'Mostrando _START_ a _END_ de _TOTAL_ resultados',
+      emptyTable: 'No hay datos disponibles',
+    }
   });
+});
+
+// Agregar usuarios
+document.addEventListener('DOMContentLoaded', function() {
+  var btnAddUser = document.getElementById('addUserBtn');
+  if (btnAddUser) {
+    btnAddUser.addEventListener('click', function() {
+      setTimeout(function() {
+          document.getElementById('nombre').value = '';
+          document.getElementById('correo').value = '';
+          document.getElementById('password').value = '';
+          document.getElementById('nombre').focus();
+      }, 500);
+    });
+  }
+});
 
 
 function agregarUsuario() {
@@ -98,14 +124,9 @@ function agregarUsuario() {
 
           xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-              // El usuario se eliminó correctamente
-              // Aquí puedes realizar acciones adicionales, como actualizar el listado de usuarios
-              // o mostrar un mensaje de éxito al usuario
-              // Por ejemplo, puedes recargar la página después de la eliminación:
               location.reload();
             } else if (xhr.readyState === 4 && xhr.status !== 200) {
               // Ocurrió un error al eliminar el usuario
-              // Aquí puedes mostrar un mensaje de error al usuario o realizar acciones adicionales
             }
           };
           xhr.send();
