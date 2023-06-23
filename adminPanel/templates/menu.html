@@ -13,7 +13,7 @@
         <div class="profile clearfix">
             <div class="profile_info">
                 <span>Bienvenido,</span>
-                <h2>{{ request.user.nombre }}</h2>
+                <h2>{{ request.user.nombre }} / {{ request.session.tipo }}</h2>
             </div>
         </div>
         <!-- /menu profile info -->
@@ -33,11 +33,13 @@
                         </a>
                     </li>
 
+                    {% if request.session.tipo == 'admin' %}
                     <li>
                         <a href="/admin/users/">
                             <i class="fa fa-users"></i> Usuarios
                         </a>
                     </li>
+                    {% endif %}
 
                     <li>
                         <a href="/admin/productos/">

@@ -1,5 +1,4 @@
 // Agregar usuarios
-
   var btnAddUser = document.getElementById('addUserBtn');
   btnAddUser.addEventListener('click', function() {
     setTimeout(function() {

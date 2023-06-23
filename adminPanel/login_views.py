@@ -48,6 +48,7 @@ def login_view(request):
                     request.session['token'] = token
                     request.session['correo'] = usuario.correo
                     request.session['foto'] = ruta_imagen
+                    request.session['tipo'] = usuario.tipo
                     request.session.modified = True
                     
                     return redirect('/admin')  # Redireccionar al panel de control
