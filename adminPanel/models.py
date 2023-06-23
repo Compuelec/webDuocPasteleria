@@ -7,7 +7,8 @@ from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.timezone import now
 from django.conf import settings
-from django.utils.timezone import now
+from django.utils import timezone
+import os
 import secrets
 
 class UsuarioManager(BaseUserManager):
@@ -26,21 +27,39 @@ class UsuarioManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
 
         return self.create_user(correo, password, **extra_fields)
+    
+    def create_user_with_token(self, correo, password=None, **extra_fields):
+        extra_fields.setdefault('_id', self.generate_id(correo, password))  # Generar _id basado en el correo
+        user = self.create_user(correo, password, **extra_fields)
+        user.generate_token(save_db=True)  # Generar y guardar el token en la instancia del usuario
+        return user
 
+    def generate_id(self, correo, password):
+        _id_generate = password + correo  # Define tu lógica para generar _id
+        return '_' + hashlib.md5(_id_generate.encode()).hexdigest()
+
+def user_directory_path(instance, filename):
+    # Generar un nombre de archivo único
+    timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+    # Obtener la extensión del archivo
+    extension = os.path.splitext(filename)[1]
+    # Devolver la ruta de destino completa
+    return os.path.join('users/img', f'{timestamp}{extension}')
 
 class Usuario(AbstractBaseUser):
     TIPO_USUARIO_CHOICES = [
         ('admin', 'Administrador'),
-        ('normal', 'Normal'),
+        ('supervisor', 'Supervisor'),
+        ('cliente', 'Cliente'),
     ]
 
     id = models.AutoField(primary_key=True)
     _id = models.CharField(max_length=255, unique=True)
     nombre = models.CharField(max_length=255)
     correo = models.EmailField(unique=True)
-    tipo = models.CharField(max_length=10, choices=TIPO_USUARIO_CHOICES, default='normal')
-    imagen = models.ImageField(upload_to='users/', null=True, blank=True)
-    token = models.CharField(max_length=255)
+    tipo = models.CharField(max_length=10, choices=TIPO_USUARIO_CHOICES, default='cliente')
+    imagen = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
+    token = models.CharField(max_length=1000)
     password = models.CharField(max_length=255)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)

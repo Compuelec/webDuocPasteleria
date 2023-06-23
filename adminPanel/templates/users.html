@@ -1,13 +1,13 @@
 {% extends 'index_master.html' %}
-
 {% block content %}
+{% load static %}
 <!-- page content -->
 <div class="right_col" role="main">
-    <div class="container">
+     <div class="container">
       <h1>Listado de Usuarios</h1>
 
       <!-- Botón Agregar Usuario -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+      <button id="addUserBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
         Agregar Usuario
       </button>
 
@@ -33,17 +33,28 @@
             <td>
               {% if usuario.imagen %}
                 <img src="{{ usuario.imagen.url }}" alt="Foto Usuario" width="50">
+
               {% else %}
-                No hay imagen
+                <img src="{% static 'img/user_base.png' %}" alt="Foto Usuario" width="50">
               {% endif %}
             </td>
             <td>
               <!-- Botón Editar Usuario -->
-              <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editUserModal{{ usuario.id }}">
+              <button type="button" class="btn btn-sm btn-info edit-user-btn" 
+                data-toggle="modal" 
+                data-target="#editUserModal"
+                data-id="{{ usuario.id }}" 
+                data-nombre="{{ usuario.nombre }}"
+                data-tipo="{{ usuario.tipo }}"
+                {% if usuario.imagen %}
+                  data-imagen="{{ usuario.imagen.url }}"
+                {% else %}
+                  data-imagen="{% static 'img/user_base.png' %}"
+                {% endif %}>
                 Editar
               </button>
               <!-- Botón Eliminar Usuario -->
-              <button type="button" class="btn btn-sm btn-danger">
+              <button type="button" class="btn btn-sm btn-danger delete-user-btn" data-id="{{ usuario.id }}" data-nombre="{{ usuario.nombre }}">
                 Eliminar
               </button>
             </td>
@@ -64,13 +75,39 @@
             </button>
           </div>
           <div class="modal-body">
-            <!-- Formulario para agregar un nuevo usuario -->
-            <!-- Aquí debes añadir los campos necesarios para crear un nuevo usuario -->
-            <!-- Por ejemplo: nombre, correo, tipo, foto, etc. -->
+            <form id="addUserForm">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <div class="form-group">
+                <label for="tipo">Tipo de Usuario</label>
+                <select class="form-control" id="tipo" name="tipo" required>
+                  <option value="admin">Administrador</option>
+                  <option value="supervisor">Supervisor</option>
+                  <option value="cliente">Cliente</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="userImagen">Imagen</label>
+                <input type="file" class="form-control-file" id="userImagen" name="userImagen">
+              </div>
+              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+              <!-- Agrega aquí los demás campos necesarios para crear un nuevo usuario -->
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-primary" onclick="agregarUsuario()">Crear Usuario</button>
           </div>
         </div>
       </div>
@@ -87,17 +124,40 @@
             </button>
           </div>
           <div class="modal-body">
-            <!-- Formulario para editar un usuario -->
-            <!-- Aquí debes añadir los campos necesarios para editar un usuario existente -->
-            <!-- Por ejemplo: nombre, correo, tipo, foto, etc. -->
+            <form id="editUserForm">
+              {% csrf_token %}
+              <input type="hidden" id="editUserId" name="editUserId" value="">
+              <div class="form-group">
+                <label for="editUserName">Nombre</label>
+                <input type="text" class="form-control" id="editUserName" name="editUserName" required>
+              </div>
+              <div class="form-group">
+                <label for="editUserTipo">Tipo de Usuario</label>
+                <select class="form-control" id="editUserTipo" name="editUserTipo" required>
+                  <option value="admin">Administrador</option>
+                  <option value="supervisor">Supervisor</option>
+                  <option value="cliente">Cliente</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="editUserImagen">Imagen</label>
+                <input type="file" class="form-control-file" id="editUserImagen" name="editUserImagen">
+              </div>
+              <!-- Mostrar la imagen actual del usuario o la imagen base -->
+              <div class="form-group">
+                <img id="editUserImagePreview" src="{% static 'img/user_base.png' %}" alt="Imagen de Usuario" style="max-width: 200px;">
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar Cambios</button>
+            <button type="button" class="btn btn-primary" onclick="editarUsuario()">Guardar Cambios</button>
           </div>
         </div>
       </div>
     </div>
+
 </div>
+<script src="{% static 'js/admin-users.js' %}"></script>
 <!-- /page content -->
 {% endblock %}

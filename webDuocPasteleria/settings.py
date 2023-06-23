@@ -140,5 +140,11 @@ USE_L10N = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "global-static"),    
+    os.path.join(BASE_DIR, "global-static")    
 ]
+
+# Establece la ruta de destino de las imágenes de usuario
+MEDIA_URL = os.path.join('/', os.path.relpath(BASE_DIR), '/global-static/')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'global-static')
+
