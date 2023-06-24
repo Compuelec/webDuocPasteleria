@@ -3,7 +3,47 @@
 {% block content %}
 <!-- page content -->
 <div class="right_col" role="main">
-  <h1>Home</h1>
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total de Productos</span>
+                <span class="info-box-number">
+                  {{ total_productos }}
+                  <small></small>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total de Usuarios</span>
+                <span class="info-box-number">
+                  {{ total_usuarios }}
+                  <small></small>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
 </div>
 <!-- /page content -->
 {% endblock %}

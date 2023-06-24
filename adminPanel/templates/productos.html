@@ -6,7 +6,6 @@
   <div class="right_col" role="main">
   {% if request.session.tipo == 'admin' %}
       <div class="container">
-
         <!-- Tabla de Productos -->
         <section class="content">
               <div class="container-fluid">
@@ -122,8 +121,10 @@
                   <input type="number" class="form-control" id="valor" name="valor" required>
                 </div>
                 <div class="form-group">
-                  <label for="productImagen">Imagen</label>
-                  <input type="file" class="form-control-file" id="productImagen" name="productImagen">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="productImagen" name="productImagen">
+                    <label class="custom-file-label" for="productImagen">Selecione una Imagen</label>
+                  </div>
                 </div>
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
               </form>
@@ -171,8 +172,10 @@
                   <input type="number" class="form-control" id="editProductValor" name="editProductValor" required>
                 </div>
                 <div class="form-group">
-                  <label for="editProductImagen">Imagen</label>
-                  <input type="file" class="form-control-file" id="editProductImagen" name="editProductImagen">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="editProductImagen" name="editProductImagen">
+                    <label class="custom-file-label" for="editProductImagen">Selecione una Imagen</label>
+                  </div>
                 </div>
                 <!-- Mostrar la imagen actual del producto o la imagen base -->
                 <div class="form-group">
@@ -187,6 +190,7 @@
           </div>
         </div>
       </div>
+
   {% endif %}
   </div>
   <!-- /page content -->

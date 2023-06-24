@@ -134,6 +134,22 @@ def editar_usuario(request):
     return JsonResponse({'success': False, 'error': 'Método no permitido'})
 
 # Sección de productos
+@login_required
+def index(request):
+    # Obtener el total de productos
+    total_productos = Producto.objects.count()
+
+    # Obtener el total de usuarios
+    total_usuarios = Usuario.objects.count()
+
+    # Pasar los totales al contexto de la plantilla
+    context = {
+        'total_productos': total_productos,
+        'total_usuarios': total_usuarios,
+    }
+
+    return render(request, 'index.html', context)
+
 @csrf_exempt
 def agregar_producto(request):
     if request.method == 'POST':
@@ -181,7 +197,6 @@ def agregar_producto(request):
     # Si la solicitud no es de tipo POST, devuelve una respuesta de error
     return JsonResponse({'success': False, 'error': 'Método no permitido'})
 
-
 @require_POST
 def eliminar_producto(request, producto_id):
     try:
@@ -210,19 +225,23 @@ def editar_producto(request, producto_id):
         # Obtener los datos del formulario de edición
         codigo = request.POST['editProductCodigo']
         nombre = request.POST['editProductNombre']
-        descripcion = request.POST['editProductDescripcion']
         stock = request.POST['editProductStock']
         valor = request.POST['editProductValor']
         imagen = request.FILES.get('editProductImagen')  # Obtener la imagen del formulario
 
+        # Eliminar la imagen antigua si se proporciona una nueva imagen
+        if imagen:
+            if producto.imagen:  # Verificar si hay una imagen antigua
+                # Eliminar el archivo de la imagen antigua
+                path_imagen_antigua = producto.imagen.path
+                os.remove(path_imagen_antigua)
+
         # Actualizar los datos del producto
         producto.codigo = codigo
         producto.nombre = nombre
-        producto.descripcion = descripcion
         producto.stock = stock
         producto.valor = valor
-        if imagen:  # Si se proporciona una nueva imagen, actualizarla
-            producto.imagen = imagen
+        producto.imagen = imagen
 
         # Guardar los cambios en la base de datos
         producto.save()
