@@ -2739,17 +2739,9 @@ span.section {
   border: 0;
   border-bottom: 1px solid #e5e5e5; }
 
-.form-control {
-  border-radius: 0;
-  width: 100%; }
-
 .form-horizontal .control-label {
   padding-top: 8px; }
 
-.form-control:focus {
-  border-color: #CCD0D7;
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important; }
 
 legend {
   font-size: 18px;

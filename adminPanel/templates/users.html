@@ -116,8 +116,10 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="userImagen">Imagen</label>
-                  <input type="file" class="form-control-file" id="userImagen" name="userImagen">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="userImagen" name="userImagen">
+                    <label class="custom-file-label" for="userImagen">Selecione una Imagen</label>
+                  </div>
                 </div>
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <!-- Agrega aquí los demás campos necesarios para crear un nuevo usuario -->
@@ -158,8 +160,10 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="editUserImagen">Imagen</label>
-                  <input type="file" class="form-control-file" id="editUserImagen" name="editUserImagen">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="editUserImagen" name="editUserImagen">
+                    <label class="custom-file-label" for="editUserImagen">Selecione una Imagen</label>
+                  </div>
                 </div>
                 <!-- Mostrar la imagen actual del usuario o la imagen base -->
                 <div class="form-group">
