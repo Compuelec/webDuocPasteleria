@@ -12,6 +12,12 @@
   --color-amarillo: #fffb00;
 }
 /* ESTILOS GENERALES */
+
+.container-body {
+  margin-bottom: 5rem;
+  min-height: 410px;
+}
+
 .card-body a { /* Cambiar el estilo del botón que esta dentro de una card */
   width: 100%;
   margin: 3px;
@@ -66,10 +72,10 @@
 
 /* SECCION BARRA DE NAVEGACION (MENU) */
 .fixed-top {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; 
 }
 
 .carrito-nav-menu {
@@ -77,19 +83,21 @@
 }
 
 #carrito-icono {
-    position: relative;
-    color: var(--secondary-color);/* Color del ícono del carrito */
+  position: relative;
+  color: var(--secondary-color);/* Color del ícono del carrito */
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 #carrito-cantidad {
-    position: absolute;
-    top: -10px; 
-    right: -10px; 
-    background-color: red; 
-    padding: 4px 6px; 
-    border-radius: 50%; 
-    min-width: 12px;
-    text-align: center;
+  position: absolute;
+  top: -10px; 
+  right: -10px; 
+  background-color: red; 
+  padding: 4px 6px; 
+  border-radius: 50%; 
+  min-width: 12px;
+  text-align: center;
 } 
 
 /* SECCION SLIDER */
@@ -113,6 +121,12 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.img-detalle-producto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* SECCION FOOTER */

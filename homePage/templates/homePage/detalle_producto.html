@@ -1,0 +1,35 @@
+{% extends 'homePage/index.html' %}
+{% block contenido %}
+{% load custom_filters %}
+{% load static %}
+
+<div class="container">
+	<div class="row">
+		<aside class="col-sm-5 border-right img-detalle-producto">
+      <article class="gallery-wrap"> 
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+      </article>
+		</aside>
+		<aside class="col-sm-7">
+      <article class="card-body p-5">
+        <h3 class="title mb-3">{{ producto.nombre }}</h3>
+
+        <p class="price-detail-wrap"> 
+          <span class="price h3 text-warning"> 
+            <span class="currency"></span><span class="num">{{ producto.valor|formato_moneda }}</span>
+          </span> 
+        </p>
+        <dl class="item-property">
+          <dt>Descripción</dt>
+          <dd><p>{{ producto.descripcion }}</p></dd>
+        </dl>
+        <hr>
+        <a onclick="AgregarCarrito('{{producto.id}}', '{{ producto.codigo }}', '{{ producto.nombre }}', {{ producto.valor|to_int }}, 1);" class="btn btn-lg btn-primary text-uppercase">
+        <i class="fas fa-shopping-cart"></i> Agregar al carrito </a>
+        <hr>
+      </article> 
+		</aside>
+	</div>
+</div>
+
+{% endblock %}

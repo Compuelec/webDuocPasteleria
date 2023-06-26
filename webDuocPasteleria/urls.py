@@ -39,7 +39,9 @@ urlpatterns = [
     path('promociones/', homeViews.promociones, name='promociones'),
     path('contacto/', homeViews.contacto, name='contacto'),
     path('carrito/', homeViews.carrito, name='carrito'),
+    path('carrito/guardar_pedido/', homeViews.guardar_pedido, name='guardar_pedido'),
     path('productos/', homeViews.productos, name='productos'),
+    path('productos/<int:producto_id>/', homeViews.ver_detalles_producto, name='ver_detalles_producto'),
     path('blog/', homeViews.blog, name='blog'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

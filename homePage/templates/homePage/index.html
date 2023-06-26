@@ -40,7 +40,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="container">
+          <div class="container" style="width: 80%;">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Inicio</a></li>
               <li class="nav-item"><a class="nav-link {% if request.path == '/productos/' %}active{% endif %}" href="/productos/">Productos</a></li>
@@ -48,8 +48,21 @@
               <li class="nav-item"><a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" href="/blog/">Blog</a></li>
               <li id="carrito-enlace" class="nav-item" style="display: none;"><a class="nav-link {% if request.path == '/carrito/' %}active{% endif %}" href="/carrito">Carrito</a></li>
               <li class="nav-item"><a class="nav-link {% if request.path == '/contacto/' %}active{% endif %}" href="/contacto">Contacto</a></li>
+              {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link"  href="/admin/logout">Cerrar sesión</a></li>
+              {% else %}
+                <li class="nav-item"><a class="nav-link" href="/admin/login">Iniciar sesión</a></li>
+              {% endif %}
             </ul>
           </div>
+          {% if user.is_authenticated %}
+            <div class="navbar-text">
+              <div>
+                Bienvenido: {{ request.user.nombre }}
+                <img src="{{ request.session.foto }}" alt="" width="40px">
+              </div>
+            </div>
+          {% endif %}
         </div>
 
         <div class="navbar-text">
@@ -62,8 +75,10 @@
 
     </header>
 
-    {% block contenido %}
-    {% endblock %}
+    <div class="container-body">
+      {% block contenido %}
+      {% endblock %}
+    </div>
 
     <!-- Footer -->
     <footer class="container-fluid py-3 footer">

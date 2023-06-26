@@ -1,10 +1,14 @@
 
 // Funcion para alertas 'success' o 'error'
-function MensajeAlerta(mensaje, tipo){
-    Swal.fire({
-        text: mensaje,
-        icon: tipo,
-    })
+function MensajeAlerta(mensaje, tipo, mostrarBoton = true) {
+  var config = {
+    text: mensaje,
+    icon: tipo,
+    showConfirmButton: mostrarBoton, 
+    confirmButtonText: 'Aceptar'
+  };
+
+  Swal.fire(config);
 }
 
 // Declaración de 'carrito' en el ámbito global
@@ -35,12 +39,13 @@ function actualizarCarritoYLocalStorage() {
     ActualizarCarritoIcono();
 }
 
-function AgregarCarrito(codigo, producto, precio, cantidad) {
+function AgregarCarrito(id, codigo, producto, precio, cantidad) {
     const itemExistente = carrito.find(item => item.codigo === codigo);
     if (itemExistente) {
         itemExistente.cantidad += cantidad;
     } else {
         carrito.push({
+            id: id,
             codigo: codigo,
             producto: producto,
             precio: precio,
@@ -80,140 +85,6 @@ function ActualizarCarritoIcono() {
         enlaceCarrito.style.display = 'none';
     }
 }
-
-// Simulamos una BD
-const productos = [
-    {
-        codigo: 'ku-01',
-        producto: 'Kuchen de nuez',
-        descripcion: 'Disfruta de nuestro tradicional kuchen con nueces y caramelo. Es perfecto para la hora del té, sin embargo también es una buena opción como postre.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/1-2-300x300.jpg',
-        url: 'kuchen-nuez.html',
-    },
-    {
-        codigo: 'ku-man-02',
-        producto: 'Kuchen de manzana',
-        descripcion: 'Disfruta de nuestro tradicional kuchen manzana. Es perfecto para la hora del té, sin embargo también es una buena opción como postre. Una preparación para compartir con toda la familia.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/2-1-300x300.jpg',
-        url: 'kuchen-manzana.html',
-    },
-    {
-        codigo: 'ku-aran-03',
-        producto: 'Kuchen de arándanos y frambuesa',
-        descripcion: 'Disfruta de nuestro Kuchen de arándanos y frambuesa con miga, es una excelente eleccion para compartir con toda la familia.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/3-1-300x300.jpg',
-        url: 'kuchen-arandanos-frambuesa.html',
-    },
-    {
-        codigo: 'pie-04',
-        producto: 'Pie de maracuyá y merengue',
-        descripcion: 'La maracuyá es una fruta maravillosa. Es ácida pero también tiene un olor demasiado rico y característico. Este pie de maracuyá es una delicia, con la acidez perfecta para combinar con el merengue.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/5-1-300x300.jpg',
-        url: 'pie-maracuya-merengue.html',
-    },
-    {
-        codigo: 'chees-05',
-        producto: 'Cheesecake de frambuesa',
-        descripcion: 'Suave y cremoso cheesecake de frutos rojos con frescos arándanos y con salsa de frambuesa, su relleno es súper cremoso, con sabor y color natural de frambuesas frescas. La base de galletas tiene un toque salado, que siempre es excelente para un postre como este. El relleno es delicioso y cremoso con sabor a queso, frambuesa y no demasiado dulce. Simplemente perfecto.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/7-1-300x300.jpg',
-        url: 'cheesecake-frambuesa.html',
-    },
-    {
-        codigo: 'chees-mara-06',
-        producto: 'Cheesecake de maracuyá',
-        descripcion: 'El cheesecake de maracuyá es uno de los postres favoritos de grandes y chicos. Refrescante, aromático y tan dulce como ácida, el maracuyá es la clave de este exquisito cheesecake.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/8-1-300x300.jpg',
-        url: 'cheesecake-maracuya.html',
-    },
-    {
-        codigo: 'apple-07',
-        producto: 'Apple Pie',
-        descripcion: 'Apple Pie relleno de frescas manzanas laminadas con salsa de vainilla y cubierta de miga Streusel. Es una tarta de manzana muy popular en la cocina de Estados Unidos que se elabora horneando una masa rellena de manzanas. El resultado es una tarta de manzana muy aromática con un sabor característico en la que el interior queda tierno y la masa exterior crujiente.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/Apple-pie-2-300x300.jpg',
-        url: 'apple-pie.html',
-    },
-    {
-        codigo: 'chees-choc-08',
-        producto: 'Cheesecake de chocolate',
-        descripcion: 'Así que todo aquel ‘chocoadicto’ que se precie, está hoy de enhorabuena, pues esta tarta de Cheesecake de chocolate por los cuatro costados; hay chocolate en la base, toneladas de chocolate y por si todo eso fuera poco más chocolate en la cobertura para rematar. ¿Quién podría resistirse a semejante tentación y festín para nuestro paladar? No es que yo lo haya intentado demasiado; ya de entrada me parecía toda una hazaña contenerme.',
-        precio: 10000,
-        stock: 10,
-        imagen: '/static/img/productos/cheesecake_chocolate_1-300x300.jpg',
-        url: 'cheesecake-chocolate.html',
-    }
-]
-
-// Aqui cargamnos los productos en el DOM (HTML)
-function cargarProductos() {
-    const container = document.getElementById('productos-container');
-
-    productos.forEach((producto) => {
-        const productoDiv = document.createElement('div');
-        productoDiv.className = 'producto col-lg-3 col-md-4 col-sm-6';
-
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'card cardProducto';
-        productoDiv.appendChild(cardDiv);
-
-        const imagenProducto = document.createElement('img');
-        imagenProducto.src = producto.imagen;
-        imagenProducto.className = 'card-img-top';
-        cardDiv.appendChild(imagenProducto);
-
-        const cardBody = document.createElement('div');
-        cardBody.className = 'card-body';
-        cardDiv.appendChild(cardBody);
-
-        const nombreProducto = document.createElement('h5');
-        nombreProducto.textContent = producto.producto;
-        nombreProducto.className = 'card-title';
-        cardBody.appendChild(nombreProducto);
-
-        const descripcionProducto = document.createElement('p');
-        descripcionProducto.textContent = producto.descripcion;
-        descripcionProducto.className = 'card-text';
-        cardBody.appendChild(descripcionProducto);
-
-        const precioProducto = document.createElement('p');
-        precioProducto.textContent = `Precio: $${producto.precio}`;
-        precioProducto.className = 'card-text';
-        cardBody.appendChild(precioProducto);
-
-        const botonAgregar = document.createElement('a');
-        botonAgregar.textContent = 'Agregar al carrito';
-        botonAgregar.className = 'btn btn-primary';
-        botonAgregar.addEventListener('click', () => AgregarCarrito(producto.codigo, producto.producto, producto.precio, 1));
-        cardBody.appendChild(botonAgregar);
-
-        const botonDetalle = document.createElement('a');
-        botonDetalle.textContent = 'Ver detalles';
-        botonDetalle.className = 'btn btn-secondary';
-        botonDetalle.href = `${producto.url}`;
-        cardBody.appendChild(botonDetalle);
-
-        container.appendChild(productoDiv);
-    });
-}
-// Llama a la función cuando la página termine de cargar y cargue los productos
-window.addEventListener('load', function() {
-    if (window.location.pathname === '/' || window.location.pathname === '/blog/' || window.location.pathname === '/productos/' ) {
-        cargarProductos();
-    }
-});
 
 window.addEventListener('load', function() {
 var productosElementProductos = document.getElementById('productos');
@@ -293,7 +164,7 @@ function MostrarCarrito() {
         botonIncrementar.classList.add('btn-primary');
         botonIncrementar.addEventListener('click', () => {
             producto.cantidad++;
-            AgregarCarrito(producto.codigo, producto.producto, producto.precio, 1);
+            AgregarCarrito(producto.id, producto.codigo, producto.producto, producto.precio, 1);
             MostrarCarrito();
             localStorage.setItem('carrito', JSON.stringify(carrito));  // Guarda el estado del carrito en localStorage
         });
@@ -365,6 +236,64 @@ window.addEventListener('load', function() {
         MostrarCarrito();
     }
 });
+
+
+// Función para crear un nuevo pedido
+function CrearPedido() {
+   
+   var user_id = document.getElementById('user-id').getAttribute('data-user-id');
+  
+   if (!user_id) {
+     // Redirigir al usuario a la página de inicio de sesión
+     window.location.href = '../admin/login';
+     return;
+   }
+
+  // Obtener el token CSRF del input hidden
+  const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+  // Crear objeto de pedido
+  const pedido = {
+    productos: carrito, // Obtener los productos del carrito
+  };
+
+  // Realizar la petición para guardar el pedido en el servidor
+  fetch('guardar_pedido/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken, // Incluir el token CSRF en los headers
+    },
+    body: JSON.stringify(pedido),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Verificar si el pedido se guardó correctamente
+      if (data.success) {
+        carrito = [];
+        localStorage.removeItem('carrito');
+        ActualizarCarritoIcono();
+        const mensajeSuccess = 'El pedido se proceso correctamente en el sistema, nos pondremos en contacto con usted a la brevedad';
+          MensajeAlerta(mensajeSuccess, 'success', false);
+          // Redirigir a la ruta de usuarios
+          setTimeout(function() {
+            window.location.href = '';
+          }, 3000);
+      } else {
+        // Mostrar un mensaje de error en caso de fallo en la creación del pedido
+        console.error('Error al crear el pedido:', data.error);
+        // Aquí puedes mostrar un mensaje de error al usuario
+      }
+    })
+    .catch(error => {
+      console.error('Error al realizar la petición:', error);
+      // Aquí puedes mostrar un mensaje de error al usuario
+    });
+}
+
+// Evento clic en el botón de "Pagar"
+document.getElementById('botonPagarCarrito').addEventListener('click', CrearPedido);
+
+
 
 // Función genérica para validar un campo de texto requerido
 function validarRequerido(input) {
@@ -442,7 +371,7 @@ function validarFormulario(event) {
 
   if (esValido) {
     const mensaje = 'Formulario enviado correctamente';
-    MensajeAlerta(mensaje, 'success');
+    MensajeAlerta(mensaje, 'success', false);
     // Redirigir a la página de inicio cuando el mensaje sea enviado correctamente
     if (window.location.pathname === '/contacto/') {
         setTimeout(function() {
