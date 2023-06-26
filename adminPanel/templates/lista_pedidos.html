@@ -1,0 +1,169 @@
+{% extends 'index_master.html' %}
+{% block content %}
+{% load custom_filters %}
+{% load static %}
+  <!-- page content -->
+  <div class="right_col" role="main">
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-12">
+                <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Listado de Pedidos</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <table id="pedidoTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Estado</th>
+                        <th>Fecha de Creación</th>
+                        <th>Cliente</th>
+                        <th>Correo</th>
+                        <th>Total Pedido</th>
+                        <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pedido in pedidos %}
+                        <tr class="{% if pedido.estado == 'pendiente' %}bg-warning{% elif pedido.estado == 'pagado' %}bg-primary{% elif pedido.estado == 'enviado' %}bg-success{% elif pedido.estado == 'cancelado' %}bg-danger{% endif %}">
+                        <td>
+                            <span class="pedido-id">{{ pedido.id }}</span>
+                        </td>
+                        <td>{{ pedido.estado }}</td>
+                        <td>{{ pedido.fecha_creacion|date:"d/m/Y" }} a las {{ pedido.fecha_creacion|time:"H:i" }}</td>
+                        <td>{{ pedido.usuario.nombre }}</td>
+                        <td>{{ pedido.usuario.correo }}</td>
+                        <td>{{ pedido.total }}</td>
+                        <td>
+                            <div class="actions">
+                            <!-- Botón Ver Detalle -->
+                            <button type="button" class="btn btn-sm ver-detalle-btn btn-secondary"
+                                data-toggle="modal"
+                                data-target="#modal{{ pedido.id }}">
+                                Ver detalle
+                            </button>
+                            </div>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Modales de detalle de pedido -->
+{% for pedido in pedidos %}
+<div class="modal fade" id="modal{{ pedido.id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ pedido.id }}Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal{{ pedido.id }}Label">Detalle del pedido #{{ pedido.id }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="invoice-container">
+
+            <div class="invoice-header">
+            <div class="row">
+                <div class="col-md-6">
+                <div class="invoice-title">
+                    <h5>Factura</h5>
+                    <p>Pedido #{{ pedido.id }}</p>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="invoice-info">
+                    <p>Fecha de creación: {{ pedido.fecha_creacion }}</p>
+                    <p>Estado: {{ pedido.estado }}</p>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <div class="invoice-user">
+                    <h6>Cliente:</h6>
+                    <p>{{ pedido.usuario.nombre }}</p>
+                </div>
+                </div>
+            </div>
+            </div>
+
+
+          <div class="invoice-body">
+            <div class="invoice-details">
+                <div class="invoice-items">
+                <h6>Detalle del pedido:</h6>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for detalle in pedido.detallepedido_set.all %}
+                    <tr>
+                        <td>{{ detalle.producto.nombre }}</td>
+                        <td>{{ detalle.cantidad }} unidades</td>
+                        <td>{{ detalle.valor }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+
+            </div>
+
+            <div class="invoice-total">
+            <div class="total-subtotal text-right">
+                <p><span class="subtotal-label">Subtotal:</span> <span class="subtotal-value">{{ pedido.subtotal }}</span></p>
+                <p><span class="subtotal-label">IVA (19%):</span> <span class="subtotal-value">{{ pedido.iva }}</span></p>
+            </div>
+            <div class="total-amount text-right">
+                <h5>Total a pagar:</h5>
+                <p class="total-value">{{ pedido.total }}</p>
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+        <div class="modal-footer">
+            <form method="POST" action="{% url 'actualizar_estado_pedido' pedido.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <select name="estado" id="estado" class="form-control">
+                        <option value="pendiente" {% if pedido.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                        <option value="pagado" {% if pedido.estado == 'pagado' %}selected{% endif %}>Pagado</option>
+                        <option value="enviado" {% if pedido.estado == 'enviado' %}selected{% endif %}>Enviado</option>
+                        <option value="cancelado" {% if pedido.estado == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+ </div>
+  <!-- /page content -->
+{% endblock %}
