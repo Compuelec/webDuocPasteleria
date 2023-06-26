@@ -291,7 +291,12 @@ function CrearPedido() {
 }
 
 // Evento clic en el botón de "Pagar"
-document.getElementById('botonPagarCarrito').addEventListener('click', CrearPedido);
+document.addEventListener('DOMContentLoaded', function() {
+  var botonPagar = document.getElementById('botonPagarCarrito');
+  if (botonPagar) {
+    botonPagar.addEventListener('click', CrearPedido);
+  }
+});
 
 
 
@@ -321,8 +326,13 @@ function validarTelefono(input) {
 }
 
 // Agregar el evento de keydown al campo de teléfono
-const telefonoInput = document.getElementById('telefono');
-telefonoInput.addEventListener('keydown', soloNumeros);
+document.addEventListener('DOMContentLoaded', function() {
+  const telefonoInput = document.getElementById('telefono');
+  if (telefonoInput) {
+    telefonoInput.addEventListener('keydown', soloNumeros);
+  }
+});
+
 
 // Función para validar el formulario
 function validarFormulario(event) {
@@ -382,7 +392,12 @@ function validarFormulario(event) {
 }
 
 // Adjuntar el evento de submit al formulario
-document.getElementById('formulario').addEventListener('submit', validarFormulario);
+document.addEventListener('DOMContentLoaded', function() {
+  const formulario = document.getElementById('formulario');
+  if (formulario) {
+    formulario.addEventListener('submit', validarFormulario);
+  }
+});
 
 // Evento de entrada para validar los campos de entrada
 const inputs = document.querySelectorAll('input, select, textarea'); // Agregado 'textarea'

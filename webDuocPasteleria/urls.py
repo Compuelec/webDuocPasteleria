@@ -23,6 +23,7 @@ from adminPanel import views as adminViews
 urlpatterns = [
     # urls de accedo
     path('admin/login/', adminViews.login_view, name='login'),
+    path('admin/registro/', adminViews.registra_usuario, name='registrar_usuario'),
 
     # urls de la app
     path('admin/', include('adminPanel.urls')),
@@ -35,6 +36,8 @@ urlpatterns = [
     path('admin/productos/eliminar_producto/<int:producto_id>/', adminViews.eliminar_producto, name='eliminar_producto'),
     path('admin/productos/add-producto/', adminViews.agregar_producto, name='crear_producto'),
     path('admin/productos/editar_producto/<int:producto_id>/', adminViews.editar_producto, name='editar_producto'),
+    path('admin/pedidos/', adminViews.lista_pedidos, name='pedidos'),
+    path('admin/pedidos/actualizar_estado_pedido/<int:pedido_id>/', adminViews.actualizar_estado_pedido, name='actualizar_estado_pedido'),
     path('', homeViews.index, name='index'),
     path('promociones/', homeViews.promociones, name='promociones'),
     path('contacto/', homeViews.contacto, name='contacto'),
@@ -43,5 +46,8 @@ urlpatterns = [
     path('productos/', homeViews.productos, name='productos'),
     path('productos/<int:producto_id>/', homeViews.ver_detalles_producto, name='ver_detalles_producto'),
     path('blog/', homeViews.blog, name='blog'),
+    path('blog/alfajor/', homeViews.blogAlfajor, name='blogAlfajor'),
+    path('blog/galleta_principe/', homeViews.blogGalletaPrincipe, name='blogGalletaPrincipe'),
+    path('blog/galleta/', homeViews.blogGalleta, name='blogGalleta'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

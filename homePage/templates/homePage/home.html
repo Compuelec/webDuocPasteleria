@@ -41,7 +41,11 @@
     {% for producto in productos %}
     <div class="col-md-6 col-lg-3 mb-4">
       <div class="card cardProducto">
-        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+        {% if producto.imagen %}
+          <img src="{{ producto.imagen.url }}" class="card-img-top"  alt="{{ producto.nombre }}">
+        {% else %}
+          <img src="{% static 'img/product_base.jpeg' %}" class="card-img-top" alt="{{ producto.nombre }}">
+        {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ producto.nombre }}</h5>
           <p class="card-text">{{ producto.descripcion }}</p>
@@ -71,7 +75,7 @@
             <p class="card-text">Fecha: 27 de abril de 2023</p>
             <p class="card-text">Tags: Receta</p>
             <p class="card-text">Resumen del artículo de blog.</p>
-            <a href="blog-receta-alfajores.html" class="btn btn-primary">Leer más</a>
+            <a href="/blog/alfajor/" class="btn btn-primary">Leer más</a>
           </div>
         </div>
       </div>
@@ -85,7 +89,7 @@
             <p class="card-text">Fecha: 7 de abril de 2023</p>
             <p class="card-text">Tags: Receta</p>
             <p class="card-text">Resumen del artículo de blog.</p>
-            <a href="blog-receta-galletas.html" class="btn btn-primary">Leer más</a>
+            <a href="/blog/galleta/" class="btn btn-primary">Leer más</a>
           </div>
         </div>
       </div>
@@ -99,7 +103,7 @@
             <p class="card-text">Fecha: 27 de enero de 2023</p>
             <p class="card-text">Tags: Receta</p>
             <p class="card-text">Resumen del artículo de blog.</p>
-            <a href="blog-receta-galletas-principe.html" class="btn btn-primary">Leer más</a>
+            <a href="/blog/galleta_principe/" class="btn btn-primary">Leer más</a>
           </div>
         </div>
       </div>

@@ -30,6 +30,15 @@ def blog(request):
     productos = Producto.objects.all()
     return render(request, 'homePage/home.html', {'productos': productos})
 
+def blogAlfajor(request):
+    return render(request, 'homePage/blog_alfajor.html', {'request': request})
+
+def blogGalletaPrincipe(request):
+    return render(request, 'homePage/blog_galleta_principe.html', {'request': request})
+
+def blogGalleta(request):
+    return render(request, 'homePage/blog_galleta.html', {'request': request})
+
 
 def guardar_pedido(request):
     if request.method == 'POST':

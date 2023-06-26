@@ -119,8 +119,13 @@ function enviarTransaccionPayku() {
 }
 
 // Ejemplo de cómo usar la función para enviar la transacción a Payku
-document.getElementById("botonPagar").addEventListener("click", function () {
-  enviarTransaccionPayku();
+document.addEventListener('DOMContentLoaded', function() {
+  var botonPagar = document.getElementById("botonPagar");
+  if (botonPagar) {
+    botonPagar.addEventListener("click", function () {
+      enviarTransaccionPayku();
+    });
+  }
 });
 
 

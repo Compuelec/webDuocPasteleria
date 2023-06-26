@@ -10,4 +10,7 @@ urlpatterns = [
     path('productos/', views.productos, name='productos'),
     path('productos/<int:producto_id>/', views.ver_detalles_producto, name='ver_detalles_producto'),
     path('blog/', views.blog, name='blog'),
+    path('blog/alfajor/', views.blogAlfajor, name='blogAlfajor'),
+    path('blog/galleta_principe/', views.blogGalletaPrincipe, name='blogGalletaPrincipe'),
+    path('blog/galleta/', views.blogGalleta, name='blogGalleta'),
 ]

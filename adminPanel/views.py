@@ -9,8 +9,9 @@ from django.contrib.auth import logout
 
 from adminPanel.models import Usuario, Producto
 from .login_views import login_view, user_login
-from .productos_views import countItems, agregar_producto, eliminar_producto, editar_producto
+from .productos_views import countItems, agregar_producto, eliminar_producto, editar_producto, lista_pedidos, actualizar_estado_pedido
 from .usuarios_views import crear_usuario, eliminar_usuario, editar_usuario
+from .registro_views import registra_usuario
 
 
 @login_required
@@ -39,11 +40,16 @@ def logout_view(request):
 login = login_view
 user_login = user_login
 
+# Importa las vistas de registro_views.py
+registra_usuario = registra_usuario
+
 # Importa las vistas de productos_views.py
 index = countItems
 agregar_producto = agregar_producto
 eliminar_producto = eliminar_producto
 editar_producto = editar_producto
+lista_pedidos = lista_pedidos
+actualizar_estado_pedido = actualizar_estado_pedido
 
 # Importa las vistas de usuarios_views.py
 crear_usuario = crear_usuario

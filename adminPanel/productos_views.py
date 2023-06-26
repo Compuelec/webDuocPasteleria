@@ -2,8 +2,10 @@ import os
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from decimal import Decimal, ROUND_DOWN
+from django.db.models import Case, When
 
 from .models import Producto, Usuario, Pedido
 
@@ -37,6 +39,57 @@ def countItems(request):
     }
 
     return render(request, 'index.html', context)
+
+@login_required
+def lista_pedidos(request):
+    # Obtener todos los pedidos
+    pedidos = Pedido.objects.all().order_by(
+            Case(
+                When(estado='pendiente', then=0),
+                When(estado='pagado', then=1),
+                When(estado='enviado', then=2),
+                When(estado='cancelado', then=3),
+                default=4,
+            ),
+            '-fecha_creacion',
+        )
+
+    for pedido in pedidos:
+        subtotal = Decimal('0')
+        for detalle in pedido.detallepedido_set.all():
+            detalle.precio_total = detalle.valor * Decimal(str(detalle.cantidad))
+            subtotal += detalle.precio_total
+
+        iva = subtotal * Decimal('0.19')
+        total = subtotal + iva
+
+        # Redondear los valores sin decimales
+        subtotal = subtotal.quantize(Decimal('0'), rounding=ROUND_DOWN)
+        iva = iva.quantize(Decimal('0'), rounding=ROUND_DOWN)
+        total = total.quantize(Decimal('0'), rounding=ROUND_DOWN)
+
+        # Formatear los valores como moneda chilena
+        subtotal_formatted = f"${subtotal:,.0f}".replace(',', '.')
+        iva_formatted = f"${iva:,.0f}".replace(',', '.')
+        total_formatted = f"${total:,.0f}".replace(',', '.')
+
+        pedido.subtotal = subtotal_formatted
+        pedido.iva = iva_formatted
+        pedido.total = total_formatted
+
+    context = {
+        'pedidos': pedidos,
+    }
+    return render(request, 'lista_pedidos.html', context)
+
+@login_required
+def actualizar_estado_pedido(request, pedido_id):
+    if request.method == 'POST':
+        pedido = Pedido.objects.get(id=pedido_id)
+        nuevo_estado = request.POST.get('estado')
+        pedido.estado = nuevo_estado
+        pedido.save()
+        return redirect('/admin/pedidos')
 
 
 @csrf_exempt
@@ -109,7 +162,7 @@ def eliminar_producto(request, producto_id):
         # Devolver una respuesta de error si ocurre algún error inesperado
         return JsonResponse({'error': str(e)}, status=500)
 
-
+@login_required
 def editar_producto(request, producto_id):
     if request.method == 'POST':
         producto = get_object_or_404(Producto, pk=producto_id)
@@ -132,7 +185,8 @@ def editar_producto(request, producto_id):
         producto.nombre = nombre
         producto.stock = stock
         producto.valor = valor
-        producto.imagen = imagen
+        if imagen:
+            producto.imagen = imagen
 
         # Guardar los cambios en la base de datos
         producto.save()

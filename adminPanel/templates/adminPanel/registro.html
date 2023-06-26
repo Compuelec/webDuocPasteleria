@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- MDB -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+<section class="vh-100" style="background-color: #508bfc;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+                <h3 class="mb-5">Registro de Usuario</h3>
+                    
+                <form action="/admin/registro/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="form-outline mb-4">
+                        <input type="text" id="nombre" name="nombre" class="form-control form-control-lg" autocomplete="off" />
+                        <label class="form-label" for="nombre">Nombre</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="email" id="correo" name="correo" class="form-control form-control-lg" autocomplete="off" />
+                        <label class="form-label" for="correo">Email</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control form-control-lg" autocomplete="off" />
+                        <label class="form-label" for="password">Contraseña</label>
+                    </div>
+
+                    <label class="form-label" for="imagen">Foto Perfil</label>
+                    <div class="form-outline mb-4">
+                        <input type="file" id="imagen" name="imagen" class="form-control form-control-lg" />
+                    </div>
+
+                    {% if error_message %}
+                    <div class="alert alert-danger my-2 ">
+                        <i class="fas fa-times-circle me-3"></i>
+                        {{ error_message }}
+                    </div>
+                    {% endif %}
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Registrarse</button>
+                </form>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- MDB -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+  ></script>
+<script>
+
+setTimeout(function() {
+    document.getElementById("nombre").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("imagen").value = "";
+    document.getElementById("nombre").focus();
+}, 550);
+
+</script>
+</body>
+</html>
