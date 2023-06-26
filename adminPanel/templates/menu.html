@@ -24,29 +24,48 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
-                <h3>Administración</h3>
-                <ul class="nav side-menu">
 
+                <ul class="nav side-menu">
                     <li>
                         <a href="/admin/">
                             <i class="fa fa-home"></i> Home
                         </a>
                     </li>
+                </ul>
 
-                    {% if request.session.tipo == 'admin' %}
+              {% if request.session.tipo == 'admin' or request.session.tipo == 'supervisor' %}
+                <h3>Administración</h3>
+                <ul class="nav side-menu">
+                    
                     <li>
                         <a href="/admin/users/">
                             <i class="fa fa-users"></i> Usuarios
                         </a>
                     </li>
-                    {% endif %}
 
                     <li>
-                        <a href="/admin/productos/">
-                            <i class="fa fa-barcode"></i> Productos
+                        <a><i class="fa fa-barcode"></i>Productos<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="/admin/productos/"><i class="fas fa-book"></i> Listado</a></li>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              {% endif %}
+              {% if request.session.tipo == 'cliente' %}
+                <h3>Cliente</h3>
+                <ul class="nav side-menu">
+
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-shopping-cart"></i> Mis Pedidos
                         </a>
                     </li>
                 </ul>
+              {% endif %}
+              
+
+
             </div>
         </div>
         <!-- /sidebar menu -->

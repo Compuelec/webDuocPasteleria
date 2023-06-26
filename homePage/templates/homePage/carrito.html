@@ -18,12 +18,14 @@
               <tbody>
               </tbody>
           </table>
+        <div id="user-id" data-user-id="{{ request.session.user_id }}"></div>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         </div>
         <div id="totales" class="text-right font-weight-bold">
             <!-- Los totales se llenarán dinámicamente desde JavaScript -->
         </div>
         <div class="text-right">
-          <button id="botonPagar" class="btn btn-primary">Pagar</button>
+          <button id="botonPagarCarrito" class="btn btn-primary">Procesar Pedido</button>
         </div>
     </div>
 

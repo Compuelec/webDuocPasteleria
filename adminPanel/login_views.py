@@ -51,7 +51,12 @@ def login_view(request):
                     request.session['tipo'] = usuario.tipo
                     request.session.modified = True
                     
-                    return redirect('/admin')  # Redireccionar al panel de control
+                    if usuario.tipo == 'cliente':
+                        # Redirigir al home de la web
+                        return redirect('/')  # Reemplaza 'home' con el nombre de la URL a la que deseas redirigir
+                    elif usuario.tipo == 'admin':
+                        # Redirigir al admin
+                        return redirect('/admin')
                 else:
                     error_message = 'Error al autenticar el usuario'
             else:

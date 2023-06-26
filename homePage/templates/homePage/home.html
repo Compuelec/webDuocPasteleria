@@ -1,5 +1,6 @@
 {% extends 'homePage/index.html' %}
 {% block contenido %}
+{% load custom_filters %}
 {% load static %}
 
   <!-- Slider -->
@@ -34,11 +35,28 @@
     </a>
   </div>
 
-  <!-- Vitrina de productos -->
-  <section class="container my-5 section-producto" id="productos">
-    <div id="productos-container" class="row">
+<!-- Vitrina de productos -->
+<section class="container my-5 section-producto" id="productos">
+  <div id="productos-container" class="row">
+    {% for producto in productos %}
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card cardProducto">
+        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ producto.nombre }}</h5>
+          <p class="card-text">{{ producto.descripcion }}</p>
+          <p class="card-text">{{ producto.valor|formato_moneda }}</p>
+          <a onclick="AgregarCarrito('{{producto.id}}', '{{ producto.codigo }}', '{{ producto.nombre }}', {{ producto.valor|to_int }}, 1);"
+             class="btn btn-primary">
+             Agregar al carrito</a>
+          <a href="{% url 'ver_detalles_producto' producto.id %}" class="btn btn-secondary">Ver detalles</a>
+        </div>
+      </div>
     </div>
-  </section>
+    {% endfor %}
+  </div>
+</section>
+
 
   <!-- Sección del blog -->
   <section class="container my-5 section-blog" id="blog">

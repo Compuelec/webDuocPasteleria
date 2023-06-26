@@ -1,49 +1,151 @@
 {% extends 'index_master.html' %}
-
 {% block content %}
+{% load static %}
 <!-- page content -->
-<div class="right_col" role="main">
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+{% if request.session.tipo == 'admin' or request.session.tipo == 'supervisor' %}
+  <div class="right_col" role="main">
 
-              <div class="info-box-content">
-                <span class="info-box-text">Total de Productos</span>
-                <span class="info-box-number">
-                  {{ total_productos }}
-                  <small></small>
-                </span>
+      <section class="content">
+        <div class="container-fluid">
+          <!-- Info boxes -->
+          <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small card -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>{{ total_productos }}</h3>
+
+                  <p>Total de Productos</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-tag"></i>
+                </div>
+                <a href="productos/" class="small-box-footer">
+                  Más info <i class="fas fa-arrow-circle-right"></i>
+                </a>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
-          </div>
 
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+            <div class="col-lg-3 col-6">
+              <!-- small card -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>{{ total_usuarios }}</h3>
 
-              <div class="info-box-content">
-                <span class="info-box-text">Total de Usuarios</span>
-                <span class="info-box-number">
-                  {{ total_usuarios }}
-                  <small></small>
-                </span>
+                  <p>Total de Usuarios</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <a href="users/" class="small-box-footer">
+                  Más info <i class="fas fa-arrow-circle-right"></i>
+                </a>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-
         </div>
+      </section>
+
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Total Pedidos Pendientes</span>
+                  <span class="info-box-number">
+                    {{ total_pendientes }}
+                    <small></small>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Total Pedidos en Proceso</span>
+                  <span class="info-box-number">
+                    {{ total_procesados }}
+                    <small></small>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Total Pedidos Terminados</span>
+                  <span class="info-box-number">
+                    {{ total_terminados }}
+                    <small></small>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <div class="col-md-6">
+        <!-- USERS LIST -->
+        <div class="card">
+          <div class="card-header">
+            <h6 class="card-title">Ultimos 6 usuarios registrados</h6>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <ul class="users-list clearfix">
+             {% for usuario in ultimos_usuarios %}
+              <li>
+                {% if usuario.imagen %}
+                  <img src="{{ usuario.imagen.url }}" alt="Foto Usuario" width="50">
+                {% else %}
+                  <img src="{% static 'img/user_base.png' %}" alt="Foto Usuario" width="50">
+                {% endif %}
+                <a class="users-list-name">{{ usuario.nombre }}</a>
+                <span class="users-list-date">{{ usuario.fecha_creacion }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+            <!-- /.users-list -->
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer text-center">
+            <a href="users/">Ver todos</a>
+          </div>
+          <!-- /.card-footer -->
+        </div>
+        <!--/.card -->
       </div>
-    </section>
 
+  </div>
+{% endif %}
 
-</div>
+{% if request.session.tipo == 'cliente' %}
+  <div class="right_col" role="main">
+  </div>
+{% endif %}
+
 <!-- /page content -->
 {% endblock %}
