@@ -1,5 +1,6 @@
 Django==3.0.6
 mysql-connector-python
+mysqlclient
 PyMySQL
 Pillow
 djangorestframework-simplejwt
