@@ -71,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'adminPanel.context_processors.total_pendientes_menu_processor',
+                'adminPanel.context_processors.lista_pedidos_pendientes_processor',
             ],
         },
     },
