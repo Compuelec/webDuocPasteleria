@@ -9,7 +9,7 @@ from django.contrib.auth import logout
 
 from adminPanel.models import Usuario, Producto
 from .login_views import login_view, user_login
-from .productos_views import countItems, agregar_producto, eliminar_producto, editar_producto, lista_pedidos, actualizar_estado_pedido
+from .productos_views import countItems,agregar_producto, eliminar_producto, editar_producto, lista_pedidos, actualizar_estado_pedido
 from .usuarios_views import crear_usuario, eliminar_usuario, editar_usuario
 from .registro_views import registra_usuario
 
@@ -17,7 +17,6 @@ from .registro_views import registra_usuario
 @login_required
 def index(request):
     return render(request, 'index.html', {'request': request})
-
 
 @login_required
 def users(request):

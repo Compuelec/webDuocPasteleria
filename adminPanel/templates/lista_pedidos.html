@@ -41,7 +41,7 @@
                         <td>
                             <div class="actions">
                             <!-- Botón Ver Detalle -->
-                            <button type="button" class="btn btn-sm ver-detalle-btn btn-secondary"
+                            <button id="btnPedido{{ pedido.id }}" type="button" class="btn btn-sm ver-detalle-btn btn-secondary"
                                 data-toggle="modal"
                                 data-target="#modal{{ pedido.id }}">
                                 Ver detalle
@@ -163,7 +163,21 @@
 </div>
 {% endfor %}
 
-
  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('idPedido');
+
+  if (id) {
+    const button = document.querySelector('#btnPedido' + id);
+    if (button) {
+      button.click();
+    }
+  }
+});
+
+</script>
   <!-- /page content -->
 {% endblock %}
