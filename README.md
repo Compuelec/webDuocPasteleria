@@ -50,18 +50,16 @@ proyectosDuoc> python -m venv virtualWebDuoc
 ```bash
 proyectosDuoc\virtualWebDuoc\Scripts> ./activate
 ```
-4.- Para instalar pip, accede a la carpeta del entorno virtual y debes ingresar el siguiente comando:
+4.- Para instalar Django en tu entorno virtual, accede a la carpeta del entorno virtual y debes ingresar el siguiente comando:
 ```bash
 proyectosDuoc\virtualWebDuoc> pip install Django==3.0.6
 ```
-5.- Luego de instalar píp debes realizar las migraciones del proyecto con el siguiente comando:
+5.- Luego de instalar Django debes instalar las dependencias del proyecto con el siguiente comando:
 ```bash
 proyectosDuoc\webDuocPasteleria> pip install -r requirements.txt
 ```
-6.- Para importar la base de datos deberas descargar el archivo adjuntado, luego debes ingresar a XAMPP para poder importar el archivo que contiene la base de datos:
-```bash
-adjuntar base de datos 
-```
+6.- Luego debes ingresar a Phpmyadmin en XAMPP para poder importar el archivo que contiene la base de datos: pasteleria.sql esta en la raiz del proyecto
+
 7.- Luego de haber realizado todos los pasos podras ejecutar el servidor de desarrollo de Django, debes regresar a tu carpeta principal, ingresar a la caarpeta del proyecto y posteriormente ingresar el siguiente comando para la ejecucion del proyecto:
 ```bash
 proyectosDuoc\webDuocPasteleria> python manage.py runserver
