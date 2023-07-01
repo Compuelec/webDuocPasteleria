@@ -1,13 +1,22 @@
 import json
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 from adminPanel.models import Producto, Pedido, DetallePedido, Usuario
 
 # Create your views here.
 def index(request):
     productos = Producto.objects.all()
-    return render(request, 'homePage/home.html', {'productos': productos})
+    paginator = Paginator(productos, 8)  # Mostrar 8 productos por página
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'homePage/home.html', context)
 
 def promociones(request):
     return render(request, 'homePage/promociones.html', {'request': request})
@@ -20,7 +29,15 @@ def carrito(request):
 
 def productos(request):
     productos = Producto.objects.all()
-    return render(request, 'homePage/home.html', {'productos': productos})
+    paginator = Paginator(productos, 8)  # Mostrar 8 productos por página
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'homePage/home.html', context)
 
 def ver_detalles_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
