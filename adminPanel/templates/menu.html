@@ -120,6 +120,7 @@
                 <!--  /Seccion de Usuario profile -->
 
                 <!--  Seccion de notificaciones -->
+                {% if request.session.tipo == 'admin' or request.session.tipo == 'supervisor' %}
                 <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-shopping-cart"></i>
@@ -158,7 +159,8 @@
                             </div>
                         </li>
                     </ul>
-                </li> 
+                </li>
+                {% endif %}
                 <!--  /Seccion de notificaciones -->
 
             </ul>
