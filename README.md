@@ -100,3 +100,10 @@ python manage.py runserver
 
 ![Web_Duoc](https://github.com/Compuelec/proyecto_web_duoc/assets/105996405/914883d2-10f1-4a55-a889-16495736aab7)
 
+<br>
+
+## Sección de Admin
+
+<br>
+
+![webDuocPasteleria-admin](https://github.com/Compuelec/webDuocPasteleria/assets/105996405/1e58d10d-b3a8-45b9-a428-5b92db5872b3)
