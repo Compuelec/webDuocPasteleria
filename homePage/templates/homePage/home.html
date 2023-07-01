@@ -38,7 +38,7 @@
 <!-- Vitrina de productos -->
 <section class="container my-5 section-producto" id="productos">
   <div id="productos-container" class="row">
-    {% for producto in productos %}
+    {% for producto in page_obj %}
     <div class="col-md-6 col-lg-3 mb-4">
       <div class="card cardProducto">
         {% if producto.imagen %}
@@ -59,6 +59,33 @@
     </div>
     {% endfor %}
   </div>
+  <!-- Paginador -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active">
+              <a class="btn btn-secondary mr-1" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a class="btn btn-primary mr-1" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="btn btn-primary mr-1" href="?page={{ page_obj.next_page_number }}">siguiente</a>
+        </li>
+        <li class="page-item">
+          <a class="btn btn-primary mr-1" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
 </section>
 
 
