@@ -56,3 +56,6 @@ homePage/__pycache__/views.cpython-310.pyc
 webDuocPasteleria/__pycache__/settings.cpython-310.pyc
 webDuocPasteleria/__pycache__/urls.cpython-310.pyc
 webDuocPasteleria/__pycache__/wsgi.cpython-310.pyc
+homePage/__pycache__/__init__.cpython-36.pyc
+adminPanel/__pycache__/__init__.cpython-36.pyc
+adminPanel/__pycache__/context_processors.cpython-36.pyc
