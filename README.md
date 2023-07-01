@@ -26,7 +26,9 @@ Version de Django 3.0.6
 
 2.- Instala pip, el administrador de paquetes de Python. Normalmente, se instala automáticamente con Python, pero en caso de que no lo tengas, puedes seguir las instrucciones en el sitio web oficial de Python para instalarlo.
 
-3.- Instala virtualenv para crear un entorno virtual aislado para tu proyecto Django. Abre la línea de comandos (Command Prompt en Windows o Terminal en macOS) y ejecuta el siguiente comando:
+3.- Debes tener previamente instalado XAMPP, que sera el servidor a utilizar para la base de datos.
+
+4.- Instala virtualenv para crear un entorno virtual aislado para tu proyecto Django. Abre la línea de comandos (Command Prompt en Windows o Terminal en macOS) y ejecuta el siguiente comando:
 
 ```bash
 pip install virtualenv
@@ -40,19 +42,31 @@ pip install virtualenv
 ```bash
 git clone https://github.com/Compuelec/webDuocPasteleria.git
 ```
-2.- Crea un entorno virtual para el proyecto:
+2.- Crea un entorno virtual para el proyecto (Este entorno virtual debe ir en la carpeta principal donde se almacenará el proyecto):
 ```bash
-virtualenv env
+proyectosDuoc> python -m venv virtualWebDuoc
 ```
 3.- Activa el entorno virtual:
 ```bash
-env\Scripts\activate
+proyectosDuoc\virtualWebDuoc\Scripts> ./activate
 ```
-4.- Para ejecutar el servidor de desarrollo de Django, usa el siguiente comando:
+4.- Para instalar pip, accede a la carpeta del entorno virtual y debes ingresar el siguiente comando:
 ```bash
-python manage.py runserver
+proyectosDuoc\virtualWebDuoc> pip install Django==3.0.6
 ```
-5.- Django iniciará el servidor en http://127.0.0.1:8000/ (localhost en el puerto 8000) de forma predeterminada. Puedes abrir tu navegador web y visitar esa dirección para ver el proyecto en funcionamiento
+5.- Luego de instalar píp debes realizar las migraciones del proyecto con el siguiente comando:
+```bash
+proyectosDuoc\webDuocPasteleria> pip install -r requirements.txt
+```
+6.- Para importar la base de datos deberas descargar el archivo adjuntado, luego debes ingresar a XAMPP para poder importar el archivo que contiene la base de datos:
+```bash
+adjuntar base de datos 
+```
+7.- Luego de haber realizado todos los pasos podras ejecutar el servidor de desarrollo de Django, debes regresar a tu carpeta principal, ingresar a la caarpeta del proyecto y posteriormente ingresar el siguiente comando para la ejecucion del proyecto:
+```bash
+proyectosDuoc\webDuocPasteleria> python manage.py runserver
+```
+8.- Django iniciará el servidor en http://127.0.0.1:8000/ (localhost en el puerto 8000) de forma predeterminada. Puedes abrir tu navegador web y visitar esa dirección para ver el proyecto en funcionamiento.
 
 <br>
 
